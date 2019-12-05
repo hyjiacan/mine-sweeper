@@ -23,3 +23,13 @@ export default {
   }
 };
 </script>
+<style scoped>
+table {
+  border: 1px solid #aaaaaa;
+  border-collapse: collapse;
+}
+td {
+  border: 1px solid #aaaaaa;
+  padding: 5px;
+}
+</style>
