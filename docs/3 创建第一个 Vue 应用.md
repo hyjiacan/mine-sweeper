@@ -64,3 +64,6 @@ yarn serve
 - *package.json* 项目配置文件，提供给npm使用的命令，以及项目依赖存放
 - *README.md*
 - *yarn.lock*
+
+---
+本节完
