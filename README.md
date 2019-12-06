@@ -4,6 +4,8 @@
 
 [教程文章在此](./docs)
 
+此游戏完整版本，见分支 [full](tree/full)
+
 ## Project setup
 ```
 yarn install
