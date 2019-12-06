@@ -1,5 +1,7 @@
 # mine-sweeper
 
+用 Vue 写的扫雷游戏
+
 ## Project setup
 ```
 yarn install
@@ -20,5 +22,6 @@ yarn build
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![截图](./pics/screenshoot.gif)
+
+![截图](./pics/screenshoot2.gif)
