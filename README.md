@@ -4,7 +4,7 @@
 
 [教程文章在此](./docs)
 
-此游戏完整版本，见分支 [full](tree/full)
+[在线游戏](http://hyjiacan.gitee.io/mine-sweeper)是此游戏的完整版本，源码见分支 [full](tree/full)
 
 ## Project setup
 ```
