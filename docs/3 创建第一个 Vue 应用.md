@@ -65,5 +65,14 @@ yarn serve
 - *README.md*
 - *yarn.lock*
 
+为了方便后期调试，可以编辑 *package.json* 文件的 `eslintConfig.rules` 节点，添加以下内容以允许 `console` 和 `debugger` 语句:
+
+```json
+"rules": {
+    "no-console": "off",
+    "no-debugger": "off"
+}
+```
+
 ---
 本节完

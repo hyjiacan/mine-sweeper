@@ -1,12 +1,14 @@
 <template>
   <div class="board">
+    <div>雷数量: {{mineCount}}， 已标记: {{markCount}}，剩下: {{mineCount - markCount}}</div>
     <table>
       <tr v-for="(row, rowIndex) in data" :key="rowIndex">
         <td v-for="cell in row" :key="cell.col">
-          <square :data="cell" />
+          <square :data="cell" @clipped="onClipped" @exploded="onExploded" @marked="onMarked" />
         </td>
       </tr>
     </table>
+    <div class="result" v-if="result">{{result}}</div>
   </div>
 </template>
 
@@ -22,11 +24,29 @@ export default {
       data: [],
       level: 1,
       mineCount: 9,
-      size: 9
+      size: 9,
+      // 标雷数量
+      markCount: 0,
+      // 翻开数量
+      clipCount: 0,
+      // 游戏结果
+      result: null
     };
   },
   mounted() {
     this.build();
+  },
+  watch: {
+    remainSquares(v) {
+      if (v === 0) {
+        this.result = "通关";
+      }
+    }
+  },
+  computed: {
+    remainSquares() {
+      return this.size ** 2 - this.markCount - this.clipCount;
+    }
   },
   methods: {
     /**
@@ -130,6 +150,19 @@ export default {
       }
 
       this.data = data;
+    },
+    onClipped() {
+      this.clipCount++;
+    },
+    onExploded() {
+      this.result = "背时，搞爆了";
+    },
+    onMarked(marked) {
+      if (marked) {
+        this.markCount++;
+      } else {
+        this.markCount--;
+      }
     }
   }
 };
@@ -142,5 +175,8 @@ table {
 td {
   border: 1px solid #aaaaaa;
   padding: 5px;
+}
+.result {
+  font-size: large;
 }
 </style>

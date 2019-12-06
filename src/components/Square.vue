@@ -5,7 +5,7 @@
     @click.left="onLeftClick"
     @click.right.prevent="onRightClick"
   >
-    <span class="text" v-if="clipped && square.mine">雷</span>
+    <span class="text" style="color:red" v-if="clipped && square.mine">雷</span>
     <span class="text" v-if="clipped && !square.mine">{{countText}}</span>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
       // 标记此区是否已经被翻开
       clipped: false,
       // 标记是否已经插上了旗
-      flagged: false
+      marked: false
     };
   },
   computed: {
@@ -32,7 +32,7 @@ export default {
     computedClass() {
       return {
         clipped: this.clipped,
-        flagged: this.flagged
+        marked: this.marked
       };
     },
     square() {
@@ -44,13 +44,19 @@ export default {
   },
   methods: {
     onLeftClick() {
-      if (this.clipped || this.flagged) {
+      if (this.clipped || this.marked) {
         return;
       }
       this.clipped = true;
+      if (this.data.mine) {
+        this.$emit("exploded");
+      } else {
+        this.$emit("clipped");
+      }
     },
     onRightClick() {
-      this.flagged = !this.flagged;
+      this.marked = !this.marked;
+      this.$emit("marked", this.marked);
     }
   }
 };
@@ -74,7 +80,7 @@ export default {
   background-color: #ffffff;
 }
 
-.flagged {
+.marked {
   &:after {
     content: "旗";
     background-color: red;
