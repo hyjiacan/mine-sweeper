@@ -3,8 +3,7 @@
     <table>
       <tr v-for="(row, rowIndex) in data" :key="rowIndex">
         <td v-for="cell in row" :key="cell.col">
-          <span v-if="cell.mine">雷</span>
-          <span v-else>{{cell.count}}</span>
+          <square :data="cell" />
         </td>
       </tr>
     </table>
@@ -12,8 +11,11 @@
 </template>
 
 <script>
+import Square from "./Square";
+
 export default {
   name: "Board",
+  components: { Square },
   data() {
     return {
       // 使用 data 作为扫雷的数据存储
@@ -132,7 +134,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style lang="less" scoped>
 table {
   border: 1px solid #aaaaaa;
   border-collapse: collapse;
