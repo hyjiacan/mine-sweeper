@@ -1,7 +1,12 @@
 <template>
-  <div class="square" :class="computedClass" @click="onClick">
+  <div
+    class="square"
+    :class="computedClass"
+    @click.left="onLeftClick"
+    @click.right.prevent="onRightClick"
+  >
     <span class="text" v-if="clipped && square.mine">雷</span>
-    <span class="text" v-if="clipped && !square.mine">{{square.count}}</span>
+    <span class="text" v-if="clipped && !square.mine">{{countText}}</span>
   </div>
 </template>
 
@@ -17,23 +22,35 @@ export default {
   data() {
     return {
       // 标记此区是否已经被翻开
-      clipped: false
+      clipped: false,
+      // 标记是否已经插上了旗
+      flagged: false
     };
   },
   computed: {
     // 自动计算样式
     computedClass() {
       return {
-        clipped: this.clipped
+        clipped: this.clipped,
+        flagged: this.flagged
       };
     },
     square() {
       return this.data || {};
+    },
+    countText() {
+      return this.data.count ? this.data.count : "";
     }
   },
   methods: {
-    onClick() {
+    onLeftClick() {
+      if (this.clipped || this.flagged) {
+        return;
+      }
       this.clipped = true;
+    },
+    onRightClick() {
+      this.flagged = !this.flagged;
     }
   }
 };
@@ -55,5 +72,15 @@ export default {
 .clipped,
 .clipped:hover {
   background-color: #ffffff;
+}
+
+.flagged {
+  &:after {
+    content: "旗";
+    background-color: red;
+    color: white;
+    padding: 1px 3px;
+    font-size: 12px;
+  }
 }
 </style>
